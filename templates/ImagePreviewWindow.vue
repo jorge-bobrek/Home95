@@ -1,7 +1,6 @@
 <script setup>
 import interact from 'interactjs';
 import {
-    onMounted,
     ref,
     defineProps,
     computed
@@ -33,12 +32,6 @@ const fileExplorer = ref(null)
 const files = ref(windowsStore.photoFolderContent)
 const currentIndex = 0
 const file = ref(files.value[currentIndex])
-
-onMounted(() => {
-    let gridH = fileExplorer.value.clientHeight
-    gridHeight.value = gridH + "px"
-    console.log(gridHeight.value)
-})
 
 const style = computed(() => ({
     height: `${h.value}px`,
@@ -233,7 +226,7 @@ onMounted(() => {
         </div>
 
         <div v-else class="file-explorer" ref="fileExplorer">
-            <div class="grid-container-photos" :style="{ height: gridHeight }">
+            <div class="grid-container-photos" style="height: 100%;">
                 <img :src="file.src" />
             </div>
         </div>
@@ -291,6 +284,21 @@ onMounted(() => {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%; /* Asegura que tome el alto que le calcula Vue */
+    width: 100%;
+    overflow: hidden; /* Evita que el contenedor crezca más de la cuenta */
+    padding: 10px; /* Un poco de margen estilo Windows 95 */
+    box-sizing: border-box;
+}
+
+/* Agrega esta nueva regla para la imagen */
+.grid-container-photos img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Esto es magia: encaja la imagen sin deformarla */
+    /* El object-fit: contain asegura que si la imagen es muy alta, 
+       se achique hasta que su alto quepa en la ventana, 
+       dejando barras a los lados si es necesario. */
 }
 
 .file-explorer {
