@@ -15,7 +15,7 @@ const openWindow = (windowId) => {
 }
 
 const openHelloHand = () => {
-    window.open("/hellohand/");
+    window.open("//hellohand.bobrek.dev");
 }
 
 

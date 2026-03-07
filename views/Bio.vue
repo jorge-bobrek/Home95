@@ -80,7 +80,7 @@
             </p>
             <p class="font-thin text-sm pb-2.5">
                 Check out the live demo
-                <a style="color: #0000FF" href="/hellohand/" class="underline">here</a>!
+                <a style="color: #0000FF" href="//hellohand.bobrek.dev" target="_blank" rel="noopener noreferrer" class="underline">here</a>!
             </p>
         </div>
     </div>
