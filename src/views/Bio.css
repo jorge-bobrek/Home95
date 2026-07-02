@@ -1,0 +1,104 @@
+.bio-container {
+  padding: 36px;
+}
+
+.bio-photo {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.bio-name {
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding: 20px 0;
+}
+
+.bio-subtitle {
+  color: #4b5563;
+  font-weight: 500;
+  font-size: 0.75rem;
+  padding-bottom: 10px;
+}
+
+.bio-badges {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 8px;
+  align-items: center;
+}
+
+.bio-badge {
+  width: auto;
+  height: 20px;
+  border-radius: 0;
+  font-size: 0.75rem;
+}
+
+.bio-section {
+  padding-top: 28px;
+}
+
+.bio-section-projects {
+  padding-top: 40px;
+}
+
+.bio-heading {
+  font-weight: bold;
+  font-size: 1rem;
+  padding-bottom: 4px;
+}
+
+.bio-text {
+  font-weight: 300;
+  font-size: 0.875rem;
+  padding-bottom: 10px;
+}
+
+.bio-job {
+  padding-top: 24px;
+}
+
+.bio-job-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.bio-job-meta {
+  color: #4b5563;
+  font-size: 0.75rem;
+}
+
+.bio-job-client {
+  color: #374151;
+  font-size: 0.75rem;
+}
+
+.bio-job-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-top: 8px;
+  font-size: 0.875rem;
+  font-weight: 300;
+}
+
+.bio-job-list li {
+  list-style-type: disc;
+  margin-bottom: 4px;
+}
+
+.bio-project {
+  padding-top: 28px;
+}
+
+.bio-project-name {
+  font-weight: bold;
+  padding-bottom: 4px;
+}
+
+.bio-link {
+  color: #0000FF;
+  text-decoration: underline;
+}

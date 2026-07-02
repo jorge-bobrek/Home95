@@ -1,0 +1,88 @@
+/*-------------------------------------------*\
+    Windows/Display
+\*-------------------------------------------*/
+
+.minimize {
+  display: none;
+}
+
+.window {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  user-select: none;
+  -ms-touch-action: none;
+  touch-action: none;
+  flex-flow: column;
+  display: flex;
+  overflow: hidden;
+}
+
+.win-fullscreen {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  transform: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.content {
+  flex-grow: 1;
+  overflow: auto;
+  padding-right: var(--content-padding-right);
+  padding-left: var(--content-padding-left);
+  padding-top: var(--content-padding-top);
+  padding-bottom: var(--content-padding-bottom);
+}
+
+/*-------------------------------------------*\
+    Top Bar
+\*-------------------------------------------*/
+
+.top-bar {
+  background: rgb(0, 0, 124);
+}
+
+.icon-image {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.top-bar-window {
+  display: flex;
+  width: auto;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  z-index: 10;
+  margin: 2px;
+  padding: 2px 2px 2px 2px;
+}
+
+.top-bar-deactivated {
+  background: rgb(123, 125, 123);
+}
+
+.top-bar:hover {
+  cursor: default;
+}
+
+.window-name {
+  color: white;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  padding: 0;
+  font-size: 16px;
+  margin: 0 0 0 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

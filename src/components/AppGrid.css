@@ -1,0 +1,29 @@
+.ag-icon-image {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 5px;
+}
+
+.ag-icon-text {
+  color: white;
+  margin: 1px;
+  font-size: smaller;
+}
+
+.ag-border-box {
+}
+
+.icon:focus .ag-icon-image {
+  filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg)
+    saturate(400%) contrast(0.9);
+}
+
+.icon:focus .ag-icon-text {
+  background: rgb(0, 0, 118);
+  color: white;
+  margin: 0px;
+}
+
+.icon:focus .ag-border-box {
+  border: rgb(255, 255, 148) dotted 1px;
+}
