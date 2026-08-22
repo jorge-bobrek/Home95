@@ -45,9 +45,25 @@ export default function Navbar() {
         onClick={handleStartClick}
       >
         <div className={isMenuActive ? 'nav-border-box' : 'container-border'}>
-          <img className="start-icon" src={win95Logo} alt="Start" />
-          <span style={{ paddingLeft: '4px', fontSize: '0.9rem', fontWeight: 'bold', color: 'black', display: 'flex', alignItems: 'center' }}>
-            Start
+          <svg className="start-icon" viewBox="0 0 24 24" width="16" height="16" stroke={windowsStore.theme === 'winXP' ? 'white' : 'black'} strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: windowsStore.theme === 'winXP' ? '2px' : '4px' }}>
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+          <span style={windowsStore.theme === 'winXP' ? {
+            paddingLeft: '6px',
+            fontSize: '1.05rem',
+            fontWeight: 'bold',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center'
+          } : {
+            paddingLeft: '4px',
+            fontSize: '0.9rem',
+            fontWeight: 'bold',
+            color: 'black',
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            {windowsStore.theme === 'winXP' ? 'start' : 'Start'}
           </span>
         </div>
       </button>
@@ -67,7 +83,7 @@ export default function Navbar() {
               >
                 <img
                   className="nav-icon-image"
-                  src={getIconPath(win.iconImage)}
+                  src={getIconPath(win.iconImage, windowsStore.theme)}
                   alt={win.altText}
                 />
                 <p className="nav-item-text">{win.displayName}</p>

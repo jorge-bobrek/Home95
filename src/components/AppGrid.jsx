@@ -50,7 +50,7 @@ export default function AppGrid() {
             >
               <img
                 className="ag-icon-image"
-                src={getIconPath(win.iconImage)}
+                src={getIconPath(win.iconImage, windowsStore.theme)}
                 alt={win.altText}
               />
               <div className="ag-border-box">

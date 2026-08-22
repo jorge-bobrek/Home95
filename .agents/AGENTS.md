@@ -81,3 +81,17 @@ To add a new window or desktop icon, follow these steps:
 - Windows must have fixed container heights or flex bounds (e.g. `.window-style` uses `height: 80vh; overflow: hidden;` instead of `min-height`).
 - Sub-components that display lists or grids (like `.fw-content` or `.ipw-content`) must use `overflow: hidden` to avoid creating double vertical scrollbars on the grey container borders.
 - Only internal explorer frames (`.file-explorer` or `.content`) are permitted to have `overflow-y: auto`.
+
+### 5. Boot and Resource Preloading (`BootScreen.jsx`)
+- The `BootScreen` component handles preloading of all critical assets (images, web fonts) to prevent layout shifts or flashing of unstyled text.
+- Any new critical image assets must be added to the preloader array inside `src/components/BootScreen.jsx`.
+- The custom web font `MS Sans Serif` load state is tracked programmatically using `document.fonts.ready` in the preloader logic.
+- A minimum display duration (nostalgia lock) is hardcoded at 3 seconds to preserve the authentic Windows 95 startup boot screen experience.
+
+### 6. Dynamic Theme Support (Windows 95 vs Windows XP)
+- The app supports multiple visual themes. The current active theme state (`theme`) is stored in the `WindowsProvider` context (either `'winXP'` or `'win95'`).
+- The theme dynamically updates the root container `#app` className (`.theme-xp` or `.theme-95`).
+- Font family and background resources are switched via conditional class selectors (e.g. `.theme-xp` uses `Tahoma` and the `bliss.jpg` wallpaper).
+- Custom window styling, title bar gradients, window control buttons, taskbar styles, and Start menu layout variants must remain scoped under the theme classes (`.theme-xp` vs `.theme-95`) to ensure clean separation of styles.
+
+

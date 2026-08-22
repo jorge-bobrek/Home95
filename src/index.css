@@ -233,6 +233,34 @@ h6 {
   overflow: hidden;
 }
 
+/* Windows XP Active Window (real border with depth, rounded corners) */
+.theme-xp .window-style:has(.top-bar) {
+  background-color: #0831d9;
+  padding: 3px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border: none;
+  box-shadow:
+    0 0 0 1px #00138c,
+    inset 1px 1px 0 rgba(255, 255, 255, 0.15),
+    2px 2px 12px rgba(0, 0, 0, 0.35);
+  outline: none;
+}
+
+/* Windows XP Inactive Window */
+.theme-xp .window-style:has(.top-bar-deactivated) {
+  background-color: #6582f5;
+  padding: 3px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border: none;
+  box-shadow:
+    0 0 0 1px #4c66a4,
+    inset 1px 1px 0 rgba(255, 255, 255, 0.1),
+    2px 2px 8px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
 @media only screen and (max-width: 600px) {
   .window-style {
     width: 100vw !important;
@@ -397,4 +425,169 @@ li {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/*-------------------------------------------*\
+    Theme Styles: Windows XP (Luna)
+\*-------------------------------------------*/
+
+.theme-xp {
+  font-family: Tahoma, "Segoe UI", sans-serif;
+  background-image: url("./assets/bliss.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.theme-xp #root {
+  font-family: Tahoma, "Segoe UI", sans-serif;
+}
+
+/* WinXP Desktop Icons */
+.theme-xp .grid-container .icon-text {
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), 0 0 4px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.2px;
+}
+
+.theme-xp .icon:focus .icon-text {
+  background: #316ac5;
+  color: white;
+  border-radius: 2px;
+}
+
+.theme-xp .icon:focus .border-box {
+  border: 1px dotted #ffffff;
+}
+
+/* WinXP Scrollbars */
+.theme-xp ::-webkit-scrollbar {
+  width: 16px;
+  background: #f0ede0;
+}
+
+.theme-xp ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #c2dcfc 0%, #79a7e3 50%, #4784d6 100%);
+  border: 1px solid #3c6db0;
+  border-radius: 3px;
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.theme-xp ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #d8e9fc 0%, #8db8eb 50%, #5896e2 100%);
+}
+
+/* WinXP Context Menu */
+.context-menu {
+  position: absolute;
+  z-index: 99999;
+  min-width: 150px;
+  background: #c0c0c0;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  padding: 2px;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.theme-xp .context-menu {
+  background: #ffffff;
+  border: 1px solid #716f64;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.35);
+  padding: 2px;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.context-menu-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 3px 20px 3px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.context-menu-item:hover:not(:disabled) {
+  background: #000080;
+  color: white;
+}
+
+.theme-xp .context-menu-item {
+  color: #000000;
+  padding: 4px 18px;
+}
+
+.theme-xp .context-menu-item:hover:not(:disabled) {
+  background: #316ac5;
+  color: #ffffff;
+}
+
+.context-menu-item:disabled {
+  color: #808080;
+  opacity: 0.6;
+}
+
+.context-menu-divider {
+  height: 1px;
+  margin: 2px 0;
+}
+
+.theme-95 .context-menu-divider {
+  background: #808080;
+  border-bottom: 1px solid #fff;
+}
+
+.theme-xp .context-menu-divider {
+  background: #aca899;
+}
+
+/* Shared Menu Bar / top-bar-nav styles (File, Edit, View, Help) */
+.top-bar-nav {
+  display: flex;
+  height: 22px;
+  width: 100%;
+  border: 1px white solid;
+  outline: 1px rgb(123, 125, 123) solid;
+  box-sizing: border-box;
+}
+
+.theme-xp .top-bar-nav {
+  border: none;
+  outline: none;
+  background: #ece9d8;
+  border-bottom: 1px solid #d6d2c2;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-bar-text {
+  height: 100%;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 12px;
+}
+
+.theme-xp .top-bar-text {
+  padding-left: 6px;
+}
+
+/* Windows XP Content margin to expose the 1px inner border-highlight of the window frame */
+.theme-xp .content,
+.theme-xp .fw-content,
+.theme-xp .ipw-content {
+  margin-left: 1px;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  background-color: #ece9d8;
 }

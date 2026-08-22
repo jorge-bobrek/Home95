@@ -1,21 +1,19 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useWindows } from '@/store/WindowsContext';
+import { getIconPath } from '@/utils/imagePath';
 import { useDragResize } from '@/hooks/useDragResize';
-import photosIcon from '@/assets/win95Icons/photos.png';
-import fileIcon from '@/assets/win95Icons/file.png';
+import TopBar from '@/components/TopBar';
 import './ImagePreviewWindow.css';
 
 export default function ImagePreviewWindow({ nameOfWindow, style: externalStyle }) {
   const windowsStore = useWindows();
   const win = windowsStore.getWindowById(nameOfWindow);
+  const file = windowsStore.photoFolderContent[0] || {};
 
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [tempPosition, setTempPosition] = useState({ x: 0, y: 0 });
   const positionRef = useRef(position);
-
-  const files = windowsStore.photoFolderContent;
-  const file = files && files.length > 0 ? files[0] : null;
 
   useEffect(() => {
     positionRef.current = position;
@@ -47,6 +45,7 @@ export default function ImagePreviewWindow({ nameOfWindow, style: externalStyle 
   }, [windowsStore, win, tempPosition, position]);
 
   const minimizeWindow = useCallback(() => {
+    windowsStore.setActiveWindow('');
     windowsStore.setWindowState({ windowState: 'minimize', windowId: win.windowId });
   }, [windowsStore, win]);
 
@@ -54,7 +53,7 @@ export default function ImagePreviewWindow({ nameOfWindow, style: externalStyle 
     windowsStore.setWindowState({ windowState: 'close', windowId: win.windowId });
   }, [windowsStore, win]);
 
-  if (!win || !file) return null;
+  if (!win) return null;
 
   const computedStyle = win.fullscreen
     ? {}
@@ -74,9 +73,6 @@ export default function ImagePreviewWindow({ nameOfWindow, style: externalStyle 
     .filter(Boolean)
     .join(' ');
 
-  const topBarClass =
-    windowsStore.activeWindow === win.windowId ? 'top-bar' : 'top-bar-deactivated';
-
   return (
     <div
       id={win.windowId}
@@ -87,39 +83,16 @@ export default function ImagePreviewWindow({ nameOfWindow, style: externalStyle 
       onMouseMove={updateCursor}
       onTouchStart={handleResizeStart}
     >
-      <div
-        data-topbar="true"
-        className={`top-bar-window ${topBarClass}`}
-        onDoubleClick={toggleWindowSize}
-        onMouseDown={handleDragStart}
-        onTouchStart={handleDragStart}
-      >
-        <div className="window-name">
-          {file.type === 'photo' ? (
-            <img className="icon-image" src={photosIcon} alt={win.altText} />
-          ) : (
-            <img className="icon-image" src={fileIcon} alt={win.altText} />
-          )}
-          <span>{file.title}</span>
-        </div>
-        <div className="triple-button">
-          <button className="minimize-button button" onClick={minimizeWindow}>
-            <svg width="6" height="2" viewBox="0 0 6 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="6" height="2" fill="black"/>
-            </svg>
-          </button>
-          <button className="expand-button button" onClick={toggleWindowSize}>
-            <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" clipRule="evenodd" d="M0 0h9v2H0V0zm0 2h9v7H0V2zm1 1h7v5H1V3z" fill="black"/>
-            </svg>
-          </button>
-          <button className="close-button button" onClick={closeWindow}>
-            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 1l6 6M7 1L1 7" stroke="black" stroke-width="2" stroke-linecap="square"/>
-            </svg>
-          </button>
-        </div>
-      </div>
+      <TopBar
+        windowId={win.windowId}
+        displayName={file.title || win.displayName}
+        iconImage={win.iconImage}
+        altText={win.altText}
+        onMinimize={minimizeWindow}
+        onMaximize={toggleWindowSize}
+        onClose={closeWindow}
+        onDragStart={handleDragStart}
+      />
       <div className="ipw-content">
         <div className="top-bar-nav">
           <div className="top-bar-text">

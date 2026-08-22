@@ -91,6 +91,22 @@ const INITIAL_WINDOWS = [
     ],
     folderSize: 300000,
   },
+  {
+    windowId: 'DisplayPropertiesWindow',
+    windowState: 'close',
+    displayName: 'Display Properties',
+    windowComponent: 'window',
+    windowContent: 'displayProperties',
+    windowContentPadding: { top: '8px', right: '8px', bottom: '8px', left: '8px' },
+    position: 'absolute',
+    positionX: '20vw',
+    positionY: '25vh',
+    iconImage: 'photos.png',
+    altText: 'Display Properties',
+    fullscreen: false,
+    showInAppGrid: false,
+    showInNavbar: true,
+  },
 ];
 
 const initialState = {
@@ -99,6 +115,7 @@ const initialState = {
   zIndex: 2,
   windows: INITIAL_WINDOWS,
   photoFolderContent: [],
+  theme: 'winXP',
 };
 
 function windowsReducer(state, action) {
@@ -192,6 +209,9 @@ function windowsReducer(state, action) {
     case 'SET_PHOTO_FOLDER_CONTENT':
       return { ...state, photoFolderContent: action.payload };
 
+    case 'SET_THEME':
+      return { ...state, theme: action.payload };
+
     default:
       return state;
   }
@@ -252,6 +272,11 @@ export function WindowsProvider({ children }) {
     []
   );
 
+  const setTheme = useCallback(
+    (theme) => dispatch({ type: 'SET_THEME', payload: theme }),
+    []
+  );
+
   const value = {
     ...state,
     getWindowById,
@@ -263,6 +288,7 @@ export function WindowsProvider({ children }) {
     setWindowState,
     pushNewWindow,
     setPhotoFolderContent,
+    setTheme,
   };
 
   return (

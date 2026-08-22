@@ -71,3 +71,152 @@
   background: rgb(0, 0, 118);
   color: white;
 }
+
+/*-------------------------------------------*\
+    Windows XP Start Menu Styles
+\*-------------------------------------------*/
+
+.xp-start-menu-container {
+  width: 250px;
+  background: #ffffff;
+  border: 1px solid #0053ee;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  user-select: none;
+}
+
+.xp-start-menu-container a {
+  text-decoration: none;
+  color: #000000;
+}
+
+/* Header */
+.xp-sm-header {
+  height: 50px;
+  background: linear-gradient(180deg, #0997ff 0%, #0053ee 10%, #0050ee 50%, #0066ff 90%, #005bff 100%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px 12px;
+  border-bottom: 2px solid #e5a01a; /* Orange strip under XP header */
+  box-shadow: inset 0 1px rgba(255,255,255,0.3);
+}
+
+.xp-sm-avatar-border {
+  width: 38px;
+  height: 38px;
+  background: #ffffff;
+  border: 1px solid #7193e6;
+  border-radius: 4px;
+  padding: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.xp-sm-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.xp-sm-user-name {
+  color: #ffffff;
+  font-family: "Trebuchet MS", sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  margin-left: 10px;
+}
+
+/* Body */
+.xp-sm-body {
+  background: #ffffff;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.xp-sm-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px;
+  border-radius: 3px;
+  transition: background 0.1s;
+}
+
+.xp-sm-bar:hover {
+  background: #3875d7;
+  color: #ffffff !important;
+}
+
+.xp-sm-bar:hover span {
+  color: #ffffff !important;
+}
+
+.xp-social-image {
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+}
+
+.xp-sm-text-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.xp-sm-title {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.xp-sm-subtitle {
+  font-size: 10px;
+  color: #777777;
+  margin-top: 1px;
+}
+
+.xp-sm-divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 15%, rgba(0,0,0,0.1) 85%, rgba(0,0,0,0) 100%);
+  margin: 4px 10px;
+}
+
+/* Footer */
+.xp-sm-footer {
+  height: 42px;
+  background: linear-gradient(180deg, #0947a1 0%, #0c57b7 10%, #0d59c0 50%, #0947a1 100%);
+  border-top: 1px solid #083375;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 12px;
+  box-shadow: inset 0 1px rgba(255,255,255,0.15);
+}
+
+.xp-footer-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 3px;
+  transition: background 0.15s;
+}
+
+.xp-footer-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+

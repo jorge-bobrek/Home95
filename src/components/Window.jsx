@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useWindows } from '@/store/WindowsContext';
-import { getIconPath } from '@/utils/imagePath';
 import { useDragResize } from '@/hooks/useDragResize';
+import TopBar from '@/components/TopBar';
 import './Window.css';
 
 export default function Window({ nameOfWindow, children, style: externalStyle }) {
@@ -72,58 +72,26 @@ export default function Window({ nameOfWindow, children, style: externalStyle })
     .filter(Boolean)
     .join(' ');
 
-  const topBarClass =
-    windowsStore.activeWindow === win.windowId
-      ? 'top-bar'
-      : 'top-bar-deactivated';
-
   return (
     <div
       id={win.windowId}
       style={computedStyle}
       className={windowClasses}
       onClick={handleSetActive}
-      onMouseDown={(e) => {
-        handleResizeStart(e);
-      }}
+      onMouseDown={handleResizeStart}
       onMouseMove={updateCursor}
-      onTouchStart={(e) => {
-        handleResizeStart(e);
-      }}
+      onTouchStart={handleResizeStart}
     >
-      <div
-        data-topbar="true"
-        className={`top-bar-window ${topBarClass}`}
-        onDoubleClick={toggleWindowSize}
-        onMouseDown={handleDragStart}
-        onTouchStart={handleDragStart}
-      >
-        <div className="window-name">
-          <img
-            className="icon-image"
-            src={getIconPath(win.iconImage)}
-            alt={win.altText}
-          />
-          {win.displayName}
-        </div>
-        <div className="triple-button">
-          <button className="minimize-button button" onClick={minimizeWindow}>
-            <svg width="6" height="2" viewBox="0 0 6 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="6" height="2" fill="black"/>
-            </svg>
-          </button>
-          <button className="expand-button button" onClick={toggleWindowSize}>
-            <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" clipRule="evenodd" d="M0 0h9v2H0V0zm0 2h9v7H0V2zm1 1h7v5H1V3z" fill="black"/>
-            </svg>
-          </button>
-          <button className="close-button button" onClick={closeWindow}>
-            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 1l6 6M7 1L1 7" stroke="black" stroke-width="2" stroke-linecap="square"/>
-            </svg>
-          </button>
-        </div>
-      </div>
+      <TopBar
+        windowId={win.windowId}
+        displayName={win.displayName}
+        iconImage={win.iconImage}
+        altText={win.altText}
+        onMinimize={minimizeWindow}
+        onMaximize={toggleWindowSize}
+        onClose={closeWindow}
+        onDragStart={handleDragStart}
+      />
       <div className="content">{children}</div>
     </div>
   );

@@ -20,11 +20,8 @@
 
 .download:active {
   box-shadow: none;
-  background: repeating-conic-gradient(
-      rgb(189, 190, 189) 0% 25%,
-      rgb(255, 255, 255) 0% 50%
-    )
-    50% / 2px 2px;
+  background: repeating-conic-gradient(rgb(189, 190, 189) 0% 25%,
+      rgb(255, 255, 255) 0% 50%) 50% / 2px 2px;
   border-top: solid rgb(0, 0, 0) 1.5px;
   border-left: solid rgb(0, 0, 0) 1.5px;
   border-bottom: solid rgb(250, 250, 250) 1.5px;
@@ -84,4 +81,44 @@
 
 .overlay {
   background: transparent;
+}
+
+/* Windows XP Theme Overrides */
+.theme-xp .download-bar {
+  border: none;
+  outline: none;
+  background: #ece9d8;
+  border-bottom: 1px solid #d6d2c2;
+  padding: 4px;
+}
+
+.theme-xp .download {
+  border: 1px solid transparent;
+  box-shadow: none;
+  background: transparent;
+  padding: 3px 8px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.theme-xp .download:hover {
+  border: 1px solid #316ac5;
+  background: #c1d2ee;
+}
+
+.theme-xp .download:active {
+  border: 1px solid #316ac5;
+  box-shadow: none;
+  background: #98b5e2;
+}
+
+.theme-xp .resume-border {
+  font-family: inherit;
+}
+
+.theme-xp .resume-frame-container {
+  border: 1px solid #7f9db9;
+  margin: 0;
 }

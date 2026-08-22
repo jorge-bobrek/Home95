@@ -47,3 +47,9 @@
   height: 100%;
 }
 
+/* Windows XP Theme Overrides */
+.theme-xp .ipw-file-explorer {
+  border: 1px solid #7f9db9;
+  margin: 0;
+  background: #7b7d7b;
+}

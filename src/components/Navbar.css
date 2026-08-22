@@ -223,3 +223,99 @@
     padding-top: 0;
   }
 }
+
+/*-------------------------------------------*\
+    Windows XP Taskbar / Navbar Styles
+\*-------------------------------------------*/
+
+.theme-xp .navbar-container {
+  height: 30px;
+  background: linear-gradient(180deg, #245ddb 0%, #2b62df 4%, #3266e3 8%, #3667e6 12%, #386ae6 20%, #3060d9 45%, #2452c9 80%, #1e45b8 95%, #183aae 100%);
+  border-top: 1px solid #183aae;
+  box-shadow: inset 0 1px #5587f4;
+}
+
+.theme-xp button.start-menu {
+  height: 30px;
+  width: 95px;
+  margin: 0 5px 0 0;
+  background: linear-gradient(180deg, #388224 0%, #46aa32 10%, #358c28 40%, #337a21 80%, #205c11 100%);
+  border: none !important;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.4);
+  padding-left: 8px;
+  padding-right: 12px;
+}
+
+.theme-xp button.start-menu:active,
+.theme-xp .start-menu-depressed {
+  background: linear-gradient(180deg, #1b4d0e 0%, #225f16 10%, #2d7a22 40%, #358c28 80%, #46aa32 100%) !important;
+  box-shadow: inset 1px 1px 4px rgba(0,0,0,0.6) !important;
+}
+
+.theme-xp .start-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.theme-xp .start-menu-depressed * {
+  transform: none; /* Disable 95 shift */
+}
+
+.theme-xp .container-border {
+  border: none;
+}
+
+.theme-xp .nav-border-box {
+  border: none;
+}
+
+.theme-xp .time {
+  height: 30px;
+  width: 85px;
+  margin: 0;
+  background: linear-gradient(180deg, #0947a1 0%, #0d59c0 10%, #0c57b7 40%, #0947a1 100%);
+  border-left: 1px solid #083375;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  color: #ffffff;
+  box-shadow: inset 1px 0 #3a8be7;
+  font-size: 0.75rem;
+  font-family: Arial, sans-serif;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.theme-xp .navbar-item {
+  height: 24px;
+  margin-top: 0;
+  background: linear-gradient(180deg, #3c8bf0 0%, #3b8aed 10%, #327ee2 45%, #276cd8 80%, #2465d3 100%);
+  border: 1px solid #1356b5;
+  border-radius: 4px;
+  box-shadow: inset 1px 1px rgba(255, 255, 255, 0.3), 1px 1px 1px rgba(0,0,0,0.25);
+  color: #ffffff;
+  font-weight: normal;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  padding: 0 8px;
+}
+
+.theme-xp .navbar-item-depressed {
+  height: 24px;
+  margin-top: 0;
+  background: linear-gradient(180deg, #1651a5 0%, #1958b4 10%, #195ac0 45%, #154fa9 80%, #0c3e94 100%);
+  border: 1px solid #083070;
+  border-radius: 4px;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  font-weight: normal;
+  padding: 0 8px;
+  text-shadow: none;
+}
+
+.theme-xp .time-icon {
+  filter: invert(1);
+}
+

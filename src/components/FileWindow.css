@@ -1,3 +1,7 @@
+/*-------------------------------------------*\
+    File Icons
+\*-------------------------------------------*/
+
 .fw-icon-text {
   display: block;
   overflow: hidden;
@@ -24,8 +28,7 @@
 }
 
 .icon-photos:focus .icon-image-photos {
-  filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg)
-    saturate(400%) contrast(0.9);
+  filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(400%) contrast(0.9);
 }
 
 .icon-photos:focus .fw-icon-text {
@@ -39,8 +42,8 @@
 }
 
 .icon-image-photos {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   margin-bottom: 5px;
 }
 
@@ -51,21 +54,9 @@
   align-content: flex-start;
 }
 
-.file-explorer {
-  background: white;
-  box-shadow: none;
-  border-top: solid rgb(0, 0, 0) 1.5px;
-  border-left: solid rgb(0, 0, 0) 1.5px;
-  border-bottom: solid rgb(250, 250, 250) 1.5px;
-  border-right: solid rgb(250, 250, 250) 1.5px;
-  flex: 1 1 0;
-  min-height: 0;
-  width: auto;
-  z-index: 10;
-  margin: 2px;
-  padding: 2px;
-  overflow-y: auto;
-}
+/*-------------------------------------------*\
+    Layout: Content + Main area
+\*-------------------------------------------*/
 
 .fw-content {
   display: flex;
@@ -75,51 +66,468 @@
   overflow: hidden;
 }
 
-.bottom-bar {
-  height: 22px;
+.fw-main-area {
   display: flex;
-  width: 100%;
+  flex-direction: row;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
 }
 
-.bar {
-  height: 100%;
-  margin: 2px 2px 2px 2px;
-  padding: 0px 2px 1px 0px;
-  box-shadow: none;
+.fw-explorer-area {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/*-------------------------------------------*\
+    File Explorer (Win95 style inner frame)
+\*-------------------------------------------*/
+
+.file-explorer {
+  background: white;
   border-top: solid rgb(0, 0, 0) 1.5px;
   border-left: solid rgb(0, 0, 0) 1.5px;
   border-bottom: solid rgb(250, 250, 250) 1.5px;
   border-right: solid rgb(250, 250, 250) 1.5px;
-  font-size: 12px;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.18);
+  flex: 1 1 0;
+  min-height: 0;
+  width: auto;
+  z-index: 10;
+  margin: 2px;
+  padding: 2px;
+  overflow-y: auto;
 }
 
-.left-bar {
-  width: 100%;
+.theme-xp .file-explorer {
+  border: 1px solid #7f9db9;
+  border-top: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 8px 12px;
+  background: #ffffff;
+}
+
+/*-------------------------------------------*\
+    Status Bar
+\*-------------------------------------------*/
+
+.status-bar {
+  background: rgb(189, 190, 189);
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  padding: 2px;
+  border-top: 1px solid #808080;
+}
+
+.status-bar-object {
+  border-top: solid rgb(123, 125, 123) 1.5px;
+  border-left: solid rgb(123, 125, 123) 1.5px;
+  border-bottom: solid rgb(250, 250, 250) 1.5px;
+  border-right: solid rgb(250, 250, 250) 1.5px;
+  flex-grow: 3;
+  margin-right: 2px;
+  font-size: 11px;
   padding-left: 2px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
 }
 
-.right-bar {
-  width: 100%;
+.status-bar-size {
+  border-top: solid rgb(123, 125, 123) 1.5px;
+  border-left: solid rgb(123, 125, 123) 1.5px;
+  border-bottom: solid rgb(250, 250, 250) 1.5px;
+  border-right: solid rgb(250, 250, 250) 1.5px;
+  flex-grow: 5;
+  font-size: 11px;
   padding-left: 2px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
 }
 
-.top-bar-nav {
+/*-------------------------------------------*\
+    Toolbar (Win95 fallback)
+\*-------------------------------------------*/
+
+.fw-toolbar {
   display: flex;
+  align-items: center;
+  background: #c3c3c3;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #808080;
+  padding: 2px 4px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.fw-toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: 1px solid transparent;
+  padding: 2px 5px;
+  font-size: 11px;
+  color: #000;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.fw-toolbar-btn:hover:not(:disabled) {
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #808080;
+  border-bottom: 1px solid #808080;
+  background: #d4d0c8;
+}
+
+.fw-toolbar-btn:disabled {
+  color: #808080;
+  cursor: default;
+}
+
+.fw-toolbar-btn svg {
+  width: 18px !important;
+  height: 18px !important;
+  flex-shrink: 0;
+}
+
+/* In Win95, btn-label is visible inline */
+.fw-toolbar-btn-label {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+/* Dropdown arrows hidden in Win95 */
+.fw-btn-arrow {
+  display: none;
+}
+
+.fw-toolbar-separator {
+  width: 1px;
+  height: 18px;
+  background: #808080;
+  margin: 0 6px;
+}
+
+/*-------------------------------------------*\
+    Windows XP — Menu bar Windows logo
+\*-------------------------------------------*/
+
+.theme-xp .top-bar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.fw-winlogo {
+  display: none;
+}
+
+.theme-xp .fw-winlogo {
+  display: block;
+  flex-shrink: 0;
+  width: 22px;
+  height: auto;
+  margin-right: 6px;
+  margin-left: 4px;
+  image-rendering: pixelated;
+  position: relative;
+  z-index: 2;
+}
+
+/*-------------------------------------------*\
+    Windows XP — Toolbar (vertical layout)
+\*-------------------------------------------*/
+
+.theme-xp .fw-toolbar {
+  background: linear-gradient(180deg, #f5f3eb 0%, #ece9d8 60%, #e0ddc8 100%);
+  border-top: 1px solid #f7f5ef;
+  border-bottom: 1px solid #b8b4a0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  height: auto;
+  min-height: 52px;
+  padding: 3px 6px 4px 6px;
+  align-items: flex-end;
+  gap: 0;
+}
+
+.theme-xp .fw-toolbar-btn {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 3px 6px 2px 6px;
+  gap: 2px;
+  color: #333 !important;
+  min-width: 48px;
+  border-radius: 3px;
+}
+
+.theme-xp .fw-toolbar-btn:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid #c8c0a8;
+}
+
+.theme-xp .fw-toolbar-btn:disabled {
+  color: #aca899 !important;
+  opacity: 0.5;
+}
+
+/* XP toolbar icon images */
+.fw-toolbar-icon {
+  display: none;
+}
+
+.theme-xp .fw-toolbar-icon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+/* Keep SVG icons for Win95 toolbar */
+.fw-toolbar-btn svg {
+  width: 18px !important;
+  height: 18px !important;
+  flex-shrink: 0;
+}
+
+.theme-xp .fw-toolbar-btn svg {
+  display: none;
+}
+
+.theme-xp .fw-toolbar-btn-label {
+  font-size: 11px;
+  color: inherit;
+}
+
+/* Show dropdown arrows in XP */
+.theme-xp .fw-btn-arrow {
+  display: inline;
+  font-size: 9px;
+}
+
+.theme-xp .fw-toolbar-separator {
+  width: 1px;
+  height: 40px;
+  background: #b8b4a0;
+  margin: 0 4px;
+  align-self: center;
+}
+
+/*-------------------------------------------*\
+    Windows XP — Address bar
+\*-------------------------------------------*/
+
+.fw-address-bar {
+  display: flex;
+  align-items: center;
+  height: 26px;
+  background: linear-gradient(180deg, #f5f3eb 0%, #ece9d8 100%);
+  border-bottom: 1px solid #b8b4a0;
+  padding: 2px 6px;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.fw-address-label {
+  font-size: 11px;
+  color: #000;
+  white-space: nowrap;
+  font-family: Tahoma, sans-serif;
+  border-right: 1px solid #b8b4a0;
+  padding-right: 6px;
+}
+
+.fw-address-field {
+  flex: 1 1 0;
+  height: 20px;
+  background: white;
+  border: 1px solid #7f9db9;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 18px 0 4px;
+  gap: 4px;
+  font-size: 11px;
+  font-family: Tahoma, sans-serif;
+  min-width: 0;
+  position: relative;
+}
+
+.fw-address-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.fw-address-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #000;
+}
+
+.fw-address-drop-img {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  right: 1px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: default;
+}
+
+.fw-address-drop {
+  color: #7f9db9;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+.fw-address-go {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: linear-gradient(180deg, #f5f3eb 0%, #dedad0 100%);
+  border: 1px solid #b8b4a0;
+  border-radius: 2px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-family: Tahoma, sans-serif;
+  color: #000;
+  cursor: pointer;
+  height: 20px;
+}
+
+/*-------------------------------------------*\
+    Windows XP — Left Task Panel (Collapsible)
+\*-------------------------------------------*/
+
+.fw-task-panel {
+  width: 180px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #748aff 0%, #4057d3 100%);
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  border-right: 1px solid #5a73e8;
+}
+
+.fw-task-section {
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.fw-task-header {
+  background: linear-gradient(to right, #f0f0ff 0%, #a8bcff 100%);
+  padding: 4px 6px;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  color: #215dc6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  min-height: 23px;
+}
+
+.fw-task-arrow-img {
+  width: 18px;
+  height: 18px;
+  filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
+}
+
+.fw-task-body {
+  background: linear-gradient(
+    to bottom,
+    #b4c8fb 0%,
+    #a4b9fb 20%,
+    #a4b9fb 80%,
+    #98aef8 100%
+  );
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fw-task-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  color: #0c327d;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+}
+
+.fw-task-link:hover {
+  text-decoration: underline;
+  color: #1c68ff;
+}
+
+.fw-task-link svg {
+  flex-shrink: 0;
+}
+
+.fw-task-details {
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  color: #000;
+  gap: 2px;
+}
+
+.fw-details-name {
+  font-weight: bold;
+  color: #000;
+}
+
+.fw-details-info {
+  color: #333;
+  font-size: 10px;
+}
+
+/*-------------------------------------------*\
+    Windows XP — Status Bar
+\*-------------------------------------------*/
+
+.theme-xp .status-bar {
+  background: #ece9d8;
+  border-top: 1px solid #d6d2c2;
   height: 22px;
-  width: 100%;
 }
 
-.top-bar-text {
-  height: 100%;
-  padding-left: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 12px;
+.theme-xp .status-bar-object,
+.theme-xp .status-bar-size {
+  border: none;
+  border-right: 1px solid #d6d2c2;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  color: #000;
+  padding: 0 6px;
+}
+
+.theme-xp .status-bar-size {
+  border-right: none;
 }
