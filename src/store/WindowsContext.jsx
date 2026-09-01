@@ -74,10 +74,10 @@ const INITIAL_WINDOWS = [
       },
       {
         id: 1,
-        title: 'IMG_143633.JPG',
+        title: 'IMG_101243.JPG',
         type: 'photo',
         src: '/files/IMG_101243.jpg',
-        altText: 'IMG_143633.JPG',
+        altText: 'IMG_101243.JPG',
         size: 323917,
       },
       {
