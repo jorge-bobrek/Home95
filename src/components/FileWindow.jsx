@@ -76,33 +76,73 @@ export default function FileWindow({
     windowsStore.setWindowState({ windowState: 'close', windowId: win.windowId });
   }, [windowsStore, win]);
 
-  const files = folderContent || [];
-  const totalSize = folderSize || '0.30MB';
+  const [history, setHistory] = useState(() => [
+    {
+      name: win.displayName,
+      content: folderContent || [],
+      size: folderSize || 0,
+    },
+  ]);
+  const [historyIndex, setHistoryIndex] = useState(0);
+
+  // Sync root history when window props change
+  useEffect(() => {
+    setHistory((prev) => {
+      const root = {
+        name: win.displayName,
+        content: folderContent || [],
+        size: folderSize || 0,
+      };
+      if (prev.length === 0) return [root];
+      const updated = [...prev];
+      updated[0] = root;
+      return updated;
+    });
+  }, [win.displayName, folderContent, folderSize]);
+
+  const currentFolder = history[historyIndex] || {
+    name: win.displayName,
+    content: folderContent || [],
+    size: folderSize || 0,
+  };
+
+  const files = currentFolder.content || [];
+  const totalSize = currentFolder.size || 0;
+  const currentFolderName = currentFolder.name;
+
+  const canGoBack = historyIndex > 0;
+  const canGoForward = historyIndex < history.length - 1;
+  const canGoUp = historyIndex > 0;
+
+  const handleBack = useCallback(() => {
+    if (historyIndex > 0) {
+      setHistoryIndex((prev) => prev - 1);
+    }
+  }, [historyIndex]);
+
+  const handleForward = useCallback(() => {
+    if (historyIndex < history.length - 1) {
+      setHistoryIndex((prev) => prev + 1);
+    }
+  }, [historyIndex, history.length]);
+
+  const handleUp = useCallback(() => {
+    if (historyIndex > 0) {
+      setHistoryIndex((prev) => prev - 1);
+    }
+  }, [historyIndex]);
 
   const handleFileClick = useCallback(
     (file) => {
       if (file.type === 'folder') {
-        const windowId = `${file.title}Window`;
-        const addWindowPayload = {
-          windowId,
-          windowState: 'open',
-          displayName: file.title,
-          windowComponent: 'FilesWindow',
-          windowContent: '',
-          windowContentPadding: { top: '0px', right: '0px', bottom: '0px', left: '0px' },
-          position: 'absolute',
-          positionX: '8vw',
-          positionY: '10vh',
-          iconImage: 'folder.png',
-          altText: file.title,
-          fullscreen: false,
-          showInAppGrid: false,
-          showInNavbar: true,
-          folderContent: file.content,
-          folderSize: file.size,
+        const newEntry = {
+          name: file.title,
+          content: file.content || [],
+          size: file.size || 0,
         };
-        windowsStore.pushNewWindow(addWindowPayload);
-        windowsStore.setWindowState({ windowState: 'open', windowId });
+        const newHistory = history.slice(0, historyIndex + 1).concat(newEntry);
+        setHistory(newHistory);
+        setHistoryIndex(newHistory.length - 1);
       } else if (file.type === 'video') {
         // Skip videos
       } else {
@@ -116,7 +156,7 @@ export default function FileWindow({
         });
       }
     },
-    [windowsStore, files]
+    [windowsStore, files, history, historyIndex]
   );
 
   const getFileTypeIcon = (type) => {
@@ -167,7 +207,7 @@ export default function FileWindow({
       {/* ── Title bar ── */}
       <TopBar
         windowId={win.windowId}
-        displayName={win.displayName}
+        displayName={currentFolderName}
         customIcon={folderIcon}
         altText={win.altText}
         onMinimize={minimizeWindow}
@@ -196,7 +236,12 @@ export default function FileWindow({
 
         {/* ── Toolbar ── */}
         <div className="fw-toolbar">
-          <button className="fw-toolbar-btn" disabled>
+          <button
+            className="fw-toolbar-btn"
+            disabled={!canGoBack}
+            onClick={handleBack}
+            title="Back"
+          >
             <img src={xpBack} className="fw-toolbar-icon" alt="" />
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -204,7 +249,12 @@ export default function FileWindow({
             </svg>
             <span className="fw-toolbar-btn-label">Back <span className="fw-btn-arrow">▾</span></span>
           </button>
-          <button className="fw-toolbar-btn" disabled>
+          <button
+            className="fw-toolbar-btn"
+            disabled={!canGoForward}
+            onClick={handleForward}
+            title="Forward"
+          >
             <img src={xpForward} className="fw-toolbar-icon" alt="" />
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -212,7 +262,12 @@ export default function FileWindow({
             </svg>
             <span className="fw-toolbar-btn-label">Forward</span>
           </button>
-          <button className="fw-toolbar-btn" disabled>
+          <button
+            className="fw-toolbar-btn"
+            disabled={!canGoUp}
+            onClick={handleUp}
+            title="Up"
+          >
             <img src={xpUp} className="fw-toolbar-icon" alt="" />
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="12" y1="19" x2="12" y2="5"></line>
@@ -255,7 +310,7 @@ export default function FileWindow({
             <span className="fw-address-label">Address</span>
             <div className="fw-address-field">
               <img src={folderIcon} className="fw-address-icon" alt="" />
-              <span className="fw-address-text">{win.displayName}</span>
+              <span className="fw-address-text">{currentFolderName}</span>
               <img src={xpDropdown} className="fw-address-drop-img" alt="" />
             </div>
             <button className="fw-address-go" disabled>
@@ -347,7 +402,7 @@ export default function FileWindow({
                   <img src={xpPullup} alt="" className="fw-task-arrow-img" />
                 </div>
                 <div className="fw-task-body fw-task-details">
-                  <p className="fw-details-name">{win.displayName}</p>
+                  <p className="fw-details-name">{currentFolderName}</p>
                   <p className="fw-details-info">File Folder</p>
                   <p className="fw-details-info">{files.length} items</p>
                 </div>

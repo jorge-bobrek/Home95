@@ -286,6 +286,8 @@
   color: #333 !important;
   min-width: 48px;
   border-radius: 3px;
+  border: 1px solid transparent;
+  cursor: pointer;
 }
 
 .theme-xp .fw-toolbar-btn:hover:not(:disabled) {
@@ -293,8 +295,20 @@
   border: 1px solid #c8c0a8;
 }
 
+.theme-xp .fw-toolbar-btn:active:not(:disabled) {
+  background: rgba(0, 0, 0, 0.12);
+  border: 1px solid #9e9a86;
+}
+
 .theme-xp .fw-toolbar-btn:disabled {
   color: #aca899 !important;
+  opacity: 0.5;
+  cursor: default;
+  border-color: transparent !important;
+}
+
+.theme-xp .fw-toolbar-btn:disabled .fw-toolbar-icon {
+  filter: grayscale(100%);
   opacity: 0.5;
 }
 
