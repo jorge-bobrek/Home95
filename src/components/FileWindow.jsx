@@ -15,6 +15,14 @@ import xpPullup from '@/assets/win95Icons/xp-pullup.png';
 import xpDropdown from '@/assets/win95Icons/xp-dropdown.png';
 import './FileWindow.css';
 
+function formatBytes(bytes) {
+  if (typeof bytes !== 'number') return bytes;
+  if (bytes === 0) return '0 bytes';
+  if (bytes < 1024) return `${bytes} bytes`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+}
+
 export default function FileWindow({
   nameOfWindow,
   style: externalStyle,
@@ -375,7 +383,7 @@ export default function FileWindow({
         {/* ── Status Bar ── */}
         <div className="status-bar">
           <div className="status-bar-object">{files.length} object(s)</div>
-          <div className="status-bar-size">{totalSize}</div>
+          <div className="status-bar-size">{formatBytes(totalSize)}</div>
         </div>
       </div>
     </div>

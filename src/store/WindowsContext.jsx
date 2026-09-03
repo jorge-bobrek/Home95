@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer, useCallback } from 'react';
+import photosData from 'virtual:photos';
 
 const INITIAL_WINDOWS = [
   {
@@ -62,34 +63,10 @@ const INITIAL_WINDOWS = [
     iconImage: 'photos.png',
     altText: 'Photos',
     fullscreen: false,
+    showInAppGrid: true,
     showInNavbar: true,
-    folderContent: [
-      {
-        id: 0,
-        title: 'IMG_6970.JPG',
-        type: 'photo',
-        src: '/files/IMG_6970.jpg',
-        altText: 'IMG_6970.JPG',
-        size: 554528,
-      },
-      {
-        id: 1,
-        title: 'IMG_101243.JPG',
-        type: 'photo',
-        src: '/files/IMG_101243.jpg',
-        altText: 'IMG_101243.JPG',
-        size: 323917,
-      },
-      {
-        id: 2,
-        title: 'IMG_143633.JPG',
-        type: 'photo',
-        src: '/files/IMG_143633.jpg',
-        altText: 'IMG_143633.JPG',
-        size: 665358,
-      },
-    ],
-    folderSize: 300000,
+    folderContent: photosData.items,
+    folderSize: photosData.totalSize,
   },
   {
     windowId: 'DisplayPropertiesWindow',
