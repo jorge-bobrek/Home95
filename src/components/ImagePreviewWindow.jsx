@@ -3,6 +3,7 @@ import { useWindows } from '@/store/WindowsContext';
 import { getIconPath } from '@/utils/imagePath';
 import { useDragResize } from '@/hooks/useDragResize';
 import TopBar from '@/components/TopBar';
+import xpWindowsLogo from '@/assets/win95Icons/xp-windows-logo.png';
 import './ImagePreviewWindow.css';
 
 export default function ImagePreviewWindow({ nameOfWindow, style: externalStyle }) {
@@ -109,6 +110,11 @@ export default function ImagePreviewWindow({ nameOfWindow, style: externalStyle 
               <u>H</u>elp{' '}
             </span>
           </div>
+          {windowsStore.theme === 'winXP' && (
+            <div className="fw-winlogo-box">
+              <img className="fw-winlogo" src={xpWindowsLogo} alt="Windows" />
+            </div>
+          )}
         </div>
 
         {file.type === 'file' ? (

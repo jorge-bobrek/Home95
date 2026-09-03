@@ -132,7 +132,7 @@ export default function App() {
         )}
       </div>
       {windowsStore.activeWindow === 'Menu' && (
-        <div style={{ position: 'absolute', zIndex: 9999, left: 0, bottom: '36px' }}>
+        <div className="start-menu-wrapper">
           <StartMenu />
         </div>
       )}

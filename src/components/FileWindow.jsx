@@ -180,7 +180,9 @@ export default function FileWindow({
             <span style={{ marginRight: '12px' }}><u>H</u>elp </span>
           </div>
           {isXP && (
-            <img className="fw-winlogo" src={xpWindowsLogo} alt="Windows" />
+            <div className="fw-winlogo-box">
+              <img className="fw-winlogo" src={xpWindowsLogo} alt="Windows" />
+            </div>
           )}
         </div>
 

@@ -229,18 +229,34 @@
   z-index: 2;
 }
 
-.fw-winlogo {
+.fw-winlogo,
+.fw-winlogo-box {
   display: none;
+}
+
+.theme-xp .fw-winlogo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 4px;
+  background: #ffffff;
+  border-left: 1px solid #d6d2c2;
+  margin-right: 0;
+  flex-shrink: 0;
+  align-self: stretch;
+  position: relative;
+  z-index: 2;
 }
 
 .theme-xp .fw-winlogo {
   display: block;
   flex-shrink: 0;
-  width: 22px;
-  height: auto;
-  margin-right: 6px;
-  margin-left: 4px;
-  image-rendering: pixelated;
+  height: 20px;
+  width: auto;
+  margin: 0;
+  object-fit: contain;
+  image-rendering: auto;
   position: relative;
   z-index: 2;
 }
