@@ -147,12 +147,26 @@ export default function FileWindow({
         // Skip videos
       } else {
         // Photo or file → open in ImagePreviewWindow
-        const contentPayload = files.slice(files.indexOf(file));
-        contentPayload.push(...files.slice(0, files.indexOf(file)));
+        const isPhoto = (f) =>
+          f.type === 'photo' ||
+          f.type === 'image' ||
+          (!f.type && (/\.(jpe?g|png|gif|webp|svg|bmp)$/i.test(f.src || '') || f.src));
+
+        const photoFiles = files.filter(isPhoto);
+        const clickedIndex = photoFiles.findIndex(
+          (f) => (f.src && f.src === file.src) || f.title === file.title
+        );
+        const activeIndex = clickedIndex >= 0 ? clickedIndex : 0;
+
         windowsStore.setWindowState({ windowState: 'close', windowId: 'ImagePreviewWindow' });
         setTimeout(() => {
-          windowsStore.setPhotoFolderContent(contentPayload);
+          windowsStore.setPhotoFolderContent({
+            photos: photoFiles.length > 0 ? photoFiles : [file],
+            activeIndex,
+          });
           windowsStore.setWindowState({ windowState: 'open', windowId: 'ImagePreviewWindow' });
+          windowsStore.setActiveWindow('ImagePreviewWindow');
+          windowsStore.zIndexIncrement('ImagePreviewWindow');
         });
       }
     },

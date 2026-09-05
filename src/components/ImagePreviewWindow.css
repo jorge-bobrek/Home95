@@ -1,9 +1,48 @@
+/*-------------------------------------------*\
+    Image Preview Window (Windows XP Picture & Fax Viewer)
+\*-------------------------------------------*/
+
+.image-preview-window {
+  width: 62vw;
+  height: 76vh;
+  min-width: 480px;
+  min-height: 400px;
+}
+
 .ipw-content {
   display: flex;
   flex-direction: column;
   flex: 1 1 0;
   min-height: 0;
   overflow: hidden;
+  position: relative;
+  background: #eef2fb;
+}
+
+/* Canvas viewport */
+.ipw-file-explorer {
+  background: #eef2fb;
+  border-top: solid rgb(0, 0, 0) 1.5px;
+  border-left: solid rgb(0, 0, 0) 1.5px;
+  border-bottom: solid rgb(250, 250, 250) 1.5px;
+  border-right: solid rgb(250, 250, 250) 1.5px;
+  flex: 1 1 0;
+  min-height: 0;
+  width: auto;
+  z-index: 10;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  user-select: none;
+}
+
+.theme-xp .ipw-file-explorer {
+  border: none;
+  margin: 0;
+  background: #eef2fb;
+  box-shadow: none;
 }
 
 .ipw-grid-container-photos {
@@ -13,32 +52,37 @@
   flex: 1 1 0;
   min-height: 0;
   width: 100%;
+  height: 100%;
   overflow: hidden;
-  padding: 10px;
+  position: relative;
   box-sizing: border-box;
+  padding: 12px 16px 4px 16px;
 }
 
-.ipw-grid-container-photos img {
+.ipw-pannable {
+  cursor: grab;
+}
+
+.ipw-pannable:active {
+  cursor: grabbing;
+}
+
+/* 1px solid black border around the photo matching authentic Windows XP */
+.ipw-photo-img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  transform-origin: center center;
+  border: 1px solid #000000;
+  box-shadow: none;
+  background: #ffffff;
+  pointer-events: auto;
 }
 
-.ipw-file-explorer {
-  background: gray;
-  box-shadow: none;
-  border-top: solid rgb(0, 0, 0) 1.5px;
-  border-left: solid rgb(0, 0, 0) 1.5px;
-  border-bottom: solid rgb(250, 250, 250) 1.5px;
-  border-right: solid rgb(250, 250, 250) 1.5px;
-  flex: 1 1 0;
-  min-height: 0;
-  width: auto;
-  z-index: 10;
-  margin: 2px;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
+.ipw-no-image {
+  color: #777;
+  font-size: 13px;
+  font-family: inherit;
 }
 
 .ipw-responsive-iframe {
@@ -47,9 +91,216 @@
   height: 100%;
 }
 
-/* Windows XP Theme Overrides */
-.theme-xp .ipw-file-explorer {
-  border: 1px solid #7f9db9;
-  margin: 0;
-  background: #7b7d7b;
+/*-------------------------------------------*\
+    Bottom Toolbar (Authentic Windows XP Flat Toolbar)
+\*-------------------------------------------*/
+
+.xp-viewer-toolbar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 0 10px 0;
+  background: #eef2fb;
+  border-top: none;
+  z-index: 20;
+}
+
+.xp-viewer-toolbar {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* Action Buttons */
+.xp-viewer-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.08s ease;
+}
+
+.xp-viewer-btn svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+.xp-viewer-btn:hover:not(:disabled) {
+  border: 1px solid #316ac5;
+  background: #c1d2ee;
+  border-radius: 2px;
+}
+
+.xp-viewer-btn:active:not(:disabled),
+.xp-viewer-btn.xp-viewer-btn-active {
+  border: 1px solid #316ac5;
+  background: #98b4e2;
+  border-radius: 2px;
+}
+
+.xp-viewer-btn:disabled {
+  opacity: 0.35;
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+
+/* Toolbar Divider */
+.xp-viewer-separator {
+  width: 1px;
+  height: 20px;
+  margin: 0 4px;
+  background: #c5bba8;
+  border: none;
+}
+
+/*-------------------------------------------*\
+    Win95 Theme Fallback Overrides
+\*-------------------------------------------*/
+
+.theme-95 .ipw-content {
+  background: #c0c0c0;
+}
+
+.theme-95 .ipw-file-explorer {
+  background: #808080;
+  border-top: 1.5px solid #000;
+  border-left: 1.5px solid #000;
+  border-right: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  margin: 3px;
+}
+
+.theme-95 .xp-viewer-toolbar-wrapper {
+  background: #c0c0c0;
+  border-top: 1.5px solid #fff;
+}
+
+.theme-95 .xp-viewer-btn {
+  border-radius: 0;
+  background: #c0c0c0;
+  border: 1.5px solid;
+  border-color: #fff #808080 #808080 #fff;
+}
+
+.theme-95 .xp-viewer-btn:hover:not(:disabled) {
+  background: #d4d0c8;
+}
+
+.theme-95 .xp-viewer-btn:active:not(:disabled),
+.theme-95 .xp-viewer-btn.xp-viewer-btn-active {
+  border-color: #808080 #fff #fff #808080;
+  background: #b5b1a9;
+}
+
+/*-------------------------------------------*\
+    Slideshow Overlay
+\*-------------------------------------------*/
+
+.xp-slideshow-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.xp-slideshow-img-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.xp-slideshow-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.8);
+  animation: xpFadeIn 0.3s ease-in-out;
+}
+
+@keyframes xpFadeIn {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.xp-slideshow-controls {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(30, 30, 30, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  padding: 4px 8px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  z-index: 1010;
+}
+
+.xp-slideshow-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+
+.xp-slideshow-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.xp-slideshow-btn-close:hover {
+  background: rgba(220, 40, 40, 0.75);
+  border-color: rgba(255, 80, 80, 0.9);
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .image-preview-window {
+    width: 100vw !important;
+    height: calc(100vh - 36px) !important;
+    min-width: 100vw;
+  }
+
+  .xp-viewer-toolbar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }

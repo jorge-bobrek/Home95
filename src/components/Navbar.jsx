@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useWindows } from '@/store/WindowsContext';
-import { getIconPath } from '@/utils/imagePath';
+import { getIconPath, getFileIconPath } from '@/utils/imagePath';
 import win95Logo from '@/assets/win95.png';
 import speakersIcon from '@/assets/speakers.png';
 import './Navbar.css';
@@ -75,6 +75,22 @@ export default function Navbar() {
 
           if (!isVisible) return null;
 
+          let displayName = win.displayName;
+          let iconSrc = getIconPath(win.iconImage, windowsStore.theme);
+
+          if (win.windowId === 'ImagePreviewWindow') {
+            const rawContent = windowsStore.photoFolderContent;
+            const photos = Array.isArray(rawContent) ? rawContent : (rawContent?.photos || []);
+            const activeIdx = Array.isArray(rawContent) ? 0 : (rawContent?.activeIndex ?? 0);
+            const activePhoto = photos[activeIdx] || photos[0];
+            if (activePhoto?.title) {
+              displayName = activePhoto.title;
+            } else if (windowsStore.theme === 'winXP') {
+              displayName = 'Windows Picture...';
+            }
+            iconSrc = getFileIconPath('image.png', windowsStore.theme) || iconSrc;
+          }
+
           return (
             <div key={win.windowId}>
               <button
@@ -83,10 +99,10 @@ export default function Navbar() {
               >
                 <img
                   className="nav-icon-image"
-                  src={getIconPath(win.iconImage, windowsStore.theme)}
+                  src={iconSrc}
                   alt={win.altText}
                 />
-                <p className="nav-item-text">{win.displayName}</p>
+                <p className="nav-item-text">{displayName}</p>
               </button>
             </div>
           );
